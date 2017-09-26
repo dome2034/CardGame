@@ -47,10 +47,11 @@ Module Module1
     Sub Main()
         Try
             Dim Deck1, Deck2 As New LinkedList(Of Card)
-            readFile("E:\งาน ป.โท\Algor\CardGame\cardgame\Data2.txt")
+            readFile("E:\งาน ป.โท\Algor\CardGame\cardgame\Data7.txt")
             Deck1 = createDeck(d1)
             Deck2 = createDeck(d2)
-            process(Deck1, Deck2)
+            'process(Deck1, Deck2)
+            process2(Deck1, Deck2)
             Console.WriteLine("End")
             Console.ReadLine()
         Catch ex As Exception
@@ -117,7 +118,79 @@ Module Module1
         Else
             Console.WriteLine("game ties after " + Turn.ToString() + " steps")
         End If
-
-
     End Sub
+
+    Sub process2(Deck1 As LinkedList(Of Card), Deck2 As LinkedList(Of Card))
+        Dim c1, c2, t As Card
+        Dim DeckTemp As New LinkedList(Of Card)
+        Dim Turn As Integer = 0
+        While Deck1.Count <> 0 And Deck2.Count <> 0 And Turn <= 99
+            c1 = Deck1.First.Value
+            c2 = Deck2.First.Value
+            If c1.getScore > c2.getScore Then
+                Deck1.AddLast(c1)
+                Deck1.AddLast(c2)
+                Deck1.RemoveFirst()
+                Deck2.RemoveFirst()
+            ElseIf c1.getScore < c2.getScore Then
+                Deck2.AddLast(c1)
+                Deck2.AddLast(c2)
+                Deck1.RemoveFirst()
+                Deck2.RemoveFirst()
+            Else
+                DeckTemp.AddLast(c1) 'C
+                DeckTemp.AddLast(c2)
+                Deck1.RemoveFirst()
+                Deck2.RemoveFirst()
+                c1 = Deck1.First.Value
+                c2 = Deck2.First.Value
+
+                DeckTemp.AddLast(c1) 'M
+                DeckTemp.AddLast(c2)
+                Deck1.RemoveFirst()
+                Deck2.RemoveFirst()
+                c1 = Deck1.First.Value
+                c2 = Deck2.First.Value
+
+                If c1.getScore > c2.getScore Then
+                    Deck1.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                    Deck1.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                    Deck1.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                    Deck1.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                    Deck1.AddLast(c1)
+                    Deck1.AddLast(c2)
+                    Deck1.RemoveFirst()
+                    Deck2.RemoveFirst()
+                ElseIf c1.getScore < c2.getScore Then
+                    Deck2.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                    Deck2.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                    Deck2.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                    Deck2.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                    Deck2.AddLast(c1)
+                    Deck2.AddLast(c2)
+                    Deck2.RemoveFirst()
+                    Deck1.RemoveFirst()
+                End If
+
+            End If
+            Turn = Turn + 1
+        End While
+
+        If Deck1.Count = 0 Then
+            Console.WriteLine("deck2 wins in " + Turn.ToString() + " steps")
+        ElseIf Deck2.Count = 0 Then
+            Console.WriteLine("deck1 wins in " + Turn.ToString() + " steps")
+        Else
+            Console.WriteLine("game ties after " + Turn.ToString() + " steps")
+        End If
+    End Sub
+
 End Module
