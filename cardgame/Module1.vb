@@ -121,27 +121,38 @@ Module Module1
     End Sub
 
     Sub process2(Deck1 As LinkedList(Of Card), Deck2 As LinkedList(Of Card))
-        Dim c1, c2, t As Card
+        Dim c1, c2 As Card
         Dim DeckTemp As New LinkedList(Of Card)
         Dim Turn As Integer = 0
         While Deck1.Count <> 0 And Deck2.Count <> 0 And Turn <= 99
             c1 = Deck1.First.Value
             c2 = Deck2.First.Value
             If c1.getScore > c2.getScore Then
+                While DeckTemp.Count > 0
+                    Deck1.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                End While
                 Deck1.AddLast(c1)
                 Deck1.AddLast(c2)
                 Deck1.RemoveFirst()
                 Deck2.RemoveFirst()
+                Turn = Turn + 1
             ElseIf c1.getScore < c2.getScore Then
+                While DeckTemp.Count > 0
+                    Deck2.AddLast(DeckTemp.First.Value)
+                    DeckTemp.RemoveFirst()
+                End While
                 Deck2.AddLast(c1)
                 Deck2.AddLast(c2)
                 Deck1.RemoveFirst()
                 Deck2.RemoveFirst()
+                Turn = Turn + 1
             Else
                 DeckTemp.AddLast(c1) 'C
                 DeckTemp.AddLast(c2)
                 Deck1.RemoveFirst()
                 Deck2.RemoveFirst()
+                Turn = Turn + 1
                 c1 = Deck1.First.Value
                 c2 = Deck2.First.Value
 
@@ -149,39 +160,9 @@ Module Module1
                 DeckTemp.AddLast(c2)
                 Deck1.RemoveFirst()
                 Deck2.RemoveFirst()
-                c1 = Deck1.First.Value
-                c2 = Deck2.First.Value
-
-                If c1.getScore > c2.getScore Then
-                    Deck1.AddLast(DeckTemp.First.Value)
-                    DeckTemp.RemoveFirst()
-                    Deck1.AddLast(DeckTemp.First.Value)
-                    DeckTemp.RemoveFirst()
-                    Deck1.AddLast(DeckTemp.First.Value)
-                    DeckTemp.RemoveFirst()
-                    Deck1.AddLast(DeckTemp.First.Value)
-                    DeckTemp.RemoveFirst()
-                    Deck1.AddLast(c1)
-                    Deck1.AddLast(c2)
-                    Deck1.RemoveFirst()
-                    Deck2.RemoveFirst()
-                ElseIf c1.getScore < c2.getScore Then
-                    Deck2.AddLast(DeckTemp.First.Value)
-                    DeckTemp.RemoveFirst()
-                    Deck2.AddLast(DeckTemp.First.Value)
-                    DeckTemp.RemoveFirst()
-                    Deck2.AddLast(DeckTemp.First.Value)
-                    DeckTemp.RemoveFirst()
-                    Deck2.AddLast(DeckTemp.First.Value)
-                    DeckTemp.RemoveFirst()
-                    Deck2.AddLast(c1)
-                    Deck2.AddLast(c2)
-                    Deck2.RemoveFirst()
-                    Deck1.RemoveFirst()
-                End If
-
+                Turn = Turn + 1
             End If
-            Turn = Turn + 1
+
         End While
 
         If Deck1.Count = 0 Then

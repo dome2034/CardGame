@@ -19,3 +19,4 @@ E:\งาน ป.โท\Algor\CardGame\CardGame\bin\Debug\CardGame.xml
 E:\งาน ป.โท\Algor\CardGame\CardGame\obj\Debug\CardGame.vbprojResolveAssemblyReference.cache
 E:\งาน ป.โท\Algor\CardGame\CardGame\obj\Debug\CardGame.Resources.resources
 E:\งาน ป.โท\Algor\CardGame\CardGame\obj\Debug\CardGame.vbproj.GenerateResource.Cache
+E:\งาน ป.โท\Algor\CardGame\CardGame\obj\Debug\CardGame.vbproj.CoreCompileInputs.cache
